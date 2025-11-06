@@ -1,0 +1,123 @@
+package org.example.otp2_inclass_w2_bmi;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+
+public class HelloController {
+    @FXML private Label lblWeight;
+    @FXML private Label lblHeight;
+    @FXML private Label lblResult;
+    @FXML private TextField txtWeight;
+    @FXML private TextField txtHeight;
+    @FXML private Button btnCalculate;
+    @FXML private Button button1;
+    @FXML private Button button2;
+    @FXML private Button button3;
+    @FXML private Button button4;
+
+    private double bmi = -1;
+    private Map<String, String> localizedStrings = new HashMap<>();
+    private String currentLanguage = "en";
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/bmi_localization";
+    private static final String DB_USER = "eku";
+    private static final String DB_PASSWORD = "password";
+
+    public void onCalculateBmi(ActionEvent actionEvent) {
+        try {
+            double weight = Double.parseDouble(txtWeight.getText());
+            double height = Double.parseDouble(txtHeight.getText());
+            double heightInMeters = height / 100.0;
+            bmi = weight / (heightInMeters * heightInMeters);
+            updateLabels();
+            saveBmiResult(weight, height, bmi, currentLanguage);
+        } catch (NumberFormatException e) {
+            lblResult.setText(localizedStrings.get("invalid"));
+        }
+    }
+
+    private void saveBmiResult(double weight, double height, double bmi, String language) {
+        String insertQuery = "INSERT INTO bmi_results (weight, height, bmi, language) VALUES (?, ?, ?, ?)";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setDouble(1, weight);
+            preparedStatement.setDouble(2, height);
+            preparedStatement.setDouble(3, bmi);
+            preparedStatement.setString(4, language);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML public void initialize() {
+        loadLocalizedStrings("en");
+        updateLabels();
+    }
+
+    private void updateLabels() {
+        lblWeight.setText(localizedStrings.get("weight"));
+        lblHeight.setText(localizedStrings.get("height"));
+        btnCalculate.setText(localizedStrings.get("calculate"));
+        button1.setText("EN");
+        button2.setText("FR");
+        button3.setText("UR");
+        button4.setText("VI");
+
+        if (bmi >= 0) {
+            lblResult.setText(String.format("%s %.2f", localizedStrings.get("result"), bmi));
+        } else {
+            lblResult.setText("");
+        }
+    }
+
+    private void loadLocalizedStrings(String language) {
+        localizedStrings.clear();
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT `key`, value FROM localization_strings WHERE language = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, language);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                localizedStrings.put(resultSet.getString("key"), resultSet.getString("value"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onButton1(ActionEvent actionEvent) {
+        currentLanguage = "en";
+        loadLocalizedStrings(currentLanguage);
+        updateLabels();
+    }
+
+    public void onButton2(ActionEvent actionEvent) {
+        currentLanguage = "fr";
+        loadLocalizedStrings(currentLanguage);
+        updateLabels();
+    }
+
+    public void onButton3(ActionEvent actionEvent) {
+        currentLanguage = "ur";
+        loadLocalizedStrings(currentLanguage);
+        updateLabels();
+    }
+
+    public void onButton4(ActionEvent actionEvent) {
+        currentLanguage = "vi";
+        loadLocalizedStrings(currentLanguage);
+        updateLabels();
+    }
+}

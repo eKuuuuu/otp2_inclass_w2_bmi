@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.otp2_inclass_w2_bmi.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <Label fx:id="lblWeight" text="Weight"/>
+    <TextField fx:id="txtWeight"/>
+    <Label fx:id="lblHeight" text="Height"/>
+    <TextField fx:id="txtHeight"/>
+    <Button fx:id="btnCalculate" text="Calculate BMI" onAction="#onCalculateBmi"/>
+    <Label fx:id="lblResult" text="Result"/>
+    <Label fx:id="lblInvalids"/>
+    <Button fx:id="button1" text="Button1" onAction="#onButton1"/>
+    <Button fx:id="button2" text="Button2" onAction="#onButton2"/>
+    <Button fx:id="button3" text="Button3" onAction="#onButton3"/>
+    <Button fx:id="button4" text="Button4" onAction="#onButton4"/>
+</VBox>

@@ -14,26 +14,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HelloController {
-    @FXML private Label lblWeight;
-    @FXML private Label lblHeight;
-    @FXML private Label lblResult;
-    @FXML private TextField txtWeight;
-    @FXML private TextField txtHeight;
-    @FXML private Button btnCalculate;
-    @FXML private Button button1;
-    @FXML private Button button2;
-    @FXML private Button button3;
-    @FXML private Button button4;
+    @FXML
+    Label lblWeight;
+    @FXML
+    Label lblHeight;
+    @FXML
+    Label lblResult;
+    @FXML
+    TextField txtWeight;
+    @FXML
+    TextField txtHeight;
+    @FXML
+    Button btnCalculate;
+    @FXML
+    Button button1;
+    @FXML
+    Button button2;
+    @FXML
+    Button button3;
+    @FXML
+    Button button4;
 
     private double bmi = -1;
-    private Map<String, String> localizedStrings = new HashMap<>();
-    private String currentLanguage = "en";
+    Map<String, String> localizedStrings = new HashMap<>();
+    String currentLanguage = "en";
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bmi_localization";
     private static final String DB_USER = "eku";
     private static final String DB_PASSWORD = "password";
 
-    public void onCalculateBmi(ActionEvent actionEvent) {
+    public void onCalculateBmi() {
         try {
             double weight = Double.parseDouble(txtWeight.getText());
             double height = Double.parseDouble(txtHeight.getText());
@@ -97,25 +107,25 @@ public class HelloController {
         }
     }
 
-    public void onButton1(ActionEvent actionEvent) {
+    public void onButton1() {
         currentLanguage = "en";
         loadLocalizedStrings(currentLanguage);
         updateLabels();
     }
 
-    public void onButton2(ActionEvent actionEvent) {
+    public void onButton2() {
         currentLanguage = "fr";
         loadLocalizedStrings(currentLanguage);
         updateLabels();
     }
 
-    public void onButton3(ActionEvent actionEvent) {
+    public void onButton3() {
         currentLanguage = "ur";
         loadLocalizedStrings(currentLanguage);
         updateLabels();
     }
 
-    public void onButton4(ActionEvent actionEvent) {
+    public void onButton4() {
         currentLanguage = "vi";
         loadLocalizedStrings(currentLanguage);
         updateLabels();

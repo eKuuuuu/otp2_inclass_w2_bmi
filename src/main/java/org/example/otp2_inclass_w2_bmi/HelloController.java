@@ -15,29 +15,29 @@ import java.util.Map;
 
 public class HelloController {
     @FXML
-    Label lblWeight;
+    public Label lblWeight;
     @FXML
-    Label lblHeight;
+    public Label lblHeight;
     @FXML
-    Label lblResult;
+    public Label lblResult;
     @FXML
-    TextField txtWeight;
+    public TextField txtWeight;
     @FXML
-    TextField txtHeight;
+    public TextField txtHeight;
     @FXML
-    Button btnCalculate;
+    public Button btnCalculate;
     @FXML
-    Button button1;
+    public Button button1;
     @FXML
-    Button button2;
+    public Button button2;
     @FXML
-    Button button3;
+    public Button button3;
     @FXML
-    Button button4;
+    public Button button4;
 
     private double bmi = -1;
-    Map<String, String> localizedStrings = new HashMap<>();
-    String currentLanguage = "en";
+    public Map<String, String> localizedStrings = new HashMap<>();
+    public String currentLanguage = "en";
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bmi_localization";
     private static final String DB_USER = "eku";

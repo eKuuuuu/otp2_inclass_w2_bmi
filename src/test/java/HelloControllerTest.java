@@ -1,8 +1,7 @@
-package org.example.otp2_inclass_w2_bmi;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.example.otp2_inclass_w2_bmi.HelloController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,16 +15,13 @@ class HelloControllerTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize JavaFX Toolkit
         try {
             javafx.application.Platform.startup(() -> {});
         } catch (IllegalStateException e) {
-            // JavaFX runtime already initialized
         }
 
         controller = new HelloController();
 
-        // Use real instances of JavaFX components
         controller.lblWeight = new Label();
         controller.lblHeight = new Label();
         controller.lblResult = new Label();

@@ -1,0 +1,9 @@
+sonar.projectKey=bmi_calculator
+sonar.projectName=bmi calculator
+sonar.projectVersion=1.0
+sonar.sources=src
+sonar.language=java
+sonar.sourceEncoding=UTF-8
+sonar.java.binaries=target/classes
+sonar.host.url=http://localhost:9000
+sonar.login=squ_23d4480238a3e0bdd8665827d4e77c0b109f8b1f
